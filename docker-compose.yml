@@ -2,6 +2,18 @@ version: '3.1'
 
 services: 
   
+  my-awesome-series:
+    image: fjunqueira/my-awesome-series
+    build: '.'
+    ports:
+      - "80:3000"
+    environment:
+      MONGODB: 'mongodb://mongo/my-awesome-series'
+    networks: 
+      - local-network      
+    depends_on: 
+      - mongo
+
   mongo:
     image: mongo
     ports:

@@ -3,6 +3,10 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const mongoose = require('mongoose')
 
+// routes
+const pagesRouter = require('./routes/pages')
+const seriesRouter = require('./routes/series')
+
 // environments
 const port = process.env.PORT || 3000
 const mongo = process.env.MONGODB || 'mongodb://localhost/my-awesome-series'
@@ -20,7 +24,8 @@ app.use(express.static('public'))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => res.render('index'))
+app.use('/', pagesRouter)
+app.use('/series', seriesRouter)
 
 mongoose
     .connect(mongo, { useNewUrlParser: true })
